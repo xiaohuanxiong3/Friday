@@ -12,8 +12,9 @@
     <description>A simple java framework implemented with reference to Spring</description>
 
     <modules>
-        <module>core</module>
+        <module>Friday-beans</module>
         <module>test</module>
+        <module>Friday-core</module>
     </modules>
 
 </project>
