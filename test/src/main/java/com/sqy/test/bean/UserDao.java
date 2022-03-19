@@ -1,4 +1,4 @@
-package com.sqy.beans.bean;
+package com.sqy.test.bean;
 
 import java.util.HashMap;
 import java.util.Map;

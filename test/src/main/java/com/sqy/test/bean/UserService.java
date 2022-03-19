@@ -1,4 +1,4 @@
-package com.sqy.beans.bean;
+package com.sqy.test.bean;
 
 public class UserService {
 
@@ -7,7 +7,7 @@ public class UserService {
     private UserDao userDao;
 
     public void queryUserInfo(){
-        System.out.println("查询用户信息:" + userDao.queryUserName(userId));
+        System.out.println("查询用户信息: " + userDao.queryUserName(userId));
     }
 
     public String getUserId() {
