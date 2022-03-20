@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Friday-context" />
         <module name="test" />
         <module name="Friday-beans" />
         <module name="Friday-core" />
@@ -14,6 +15,7 @@
     <bytecodeTargetLevel>
       <module name="Friday" target="1.5" />
       <module name="Friday-beans" target="11" />
+      <module name="Friday-context" target="17" />
       <module name="Friday-core" target="11" />
       <module name="test" target="11" />
     </bytecodeTargetLevel>

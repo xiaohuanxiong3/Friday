@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Friday.iml" filepath="$PROJECT_DIR$/.idea/Friday.iml" />
       <module fileurl="file://$PROJECT_DIR$/Friday-beans/Friday-beans.iml" filepath="$PROJECT_DIR$/Friday-beans/Friday-beans.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Friday-context/Friday-context.iml" filepath="$PROJECT_DIR$/Friday-context/Friday-context.iml" />
       <module fileurl="file://$PROJECT_DIR$/Friday-core/Friday-core.iml" filepath="$PROJECT_DIR$/Friday-core/Friday-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
     </modules>

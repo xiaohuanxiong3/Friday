@@ -15,6 +15,7 @@
         <module>Friday-beans</module>
         <module>test</module>
         <module>Friday-core</module>
+        <module>Friday-context</module>
     </modules>
 
 </project>

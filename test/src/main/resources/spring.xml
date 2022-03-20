@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans>
-    <bean id="userDao" class="com.sqy.test.bean.UserDao" />
-    <bean id="userService" class="com.sqy.test.bean.UserService" >
+    <bean id="userDao" class="com.friday.test.bean.UserDao" />
+    <bean id="userService" class="com.friday.test.bean.UserService" >
         <property name="userId" value="10003" />
         <property name="userDao" ref="userDao" />
+        <property name="company" value="一拓" />
+        <property name="location" value="南京" />
     </bean>
+
+    <bean class="com.friday.test.config.CustomBeanFactoryPostProcessor" />
+    <bean class="com.friday.test.config.CustomBeanPostProcessor" />
 </beans>
