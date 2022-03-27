@@ -1,6 +1,11 @@
 package com.friday.test.bean;
 
-public class UserService {
+import com.friday.beans.BeansException;
+import com.friday.beans.factory.*;
+import com.friday.context.ApplicationContext;
+import com.friday.context.ApplicationContextAware;
+
+public class UserService  {
 
     private String userId;
 
@@ -8,10 +13,10 @@ public class UserService {
 
     private String location;
 
-    private UserDao userDao;
+    private IUserDao userDao;
 
-    public void queryUserInfo(){
-        System.out.println("查询用户信息: " + userDao.queryUserName(userId));
+    public String queryUserInfo(){
+        return userDao.queryUserName(userId) + "," + company + "," + location;
     }
 
     public String getUserId() {
@@ -22,11 +27,11 @@ public class UserService {
         this.userId = userId;
     }
 
-    public UserDao getUserDao() {
+    public IUserDao getUserDao() {
         return userDao;
     }
 
-    public void setUserDao(UserDao userDao) {
+    public void setUserDao(IUserDao userDao) {
         this.userDao = userDao;
     }
 
@@ -46,13 +51,13 @@ public class UserService {
         this.location = location;
     }
 
-    @Override
-    public String toString() {
-        return "UserService{" +
-                "userId='" + userId + '\'' +
-                ", company='" + company + '\'' +
-                ", location='" + location + '\'' +
-                ", userDao=" + userDao +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "UserService{" +
+//                "userId='" + userId + '\'' +
+//                ", company='" + company + '\'' +
+//                ", location='" + location + '\'' +
+//                ", userDao=" + userDao +
+//                '}';
+//    }
 }

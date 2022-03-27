@@ -6,10 +6,22 @@ import java.util.Map;
 public class UserDao {
     private static Map<String,String> hashMap = new HashMap<>();
 
-    static {
+//    static {
+//        hashMap.put("10001","sqy");
+//        hashMap.put("10002","sjj");
+//        hashMap.put("10003","xhx");
+//    }
+
+    public void initDataMethod(){
+        System.out.println("执行：init-method");
         hashMap.put("10001","sqy");
         hashMap.put("10002","sjj");
         hashMap.put("10003","xhx");
+    }
+
+    public void destroyDataMethod(){
+        System.out.println("执行：destroy-method");
+        hashMap.clear();
     }
 
     public String queryUserName(String userId) {

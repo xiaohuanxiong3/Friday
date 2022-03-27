@@ -88,5 +88,54 @@ public class apiTest {
         System.out.println(userService.toString());
     }
 
+    @Test
+    public void test_xml2(){
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
+        applicationContext.registerShutdownHook();
 
+        // 2.获取Bean对象调用方法
+        UserService userService = (UserService) applicationContext.getBean("userService");
+
+        System.out.println(userService.toString());
+    }
+
+    @Test
+    public void test_xml3(){
+        // 1.初始化 ApplicationContext
+//        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
+//        applicationContext.registerShutdownHook();
+//
+//        UserService userService = applicationContext.getBean("userService",UserService.class);
+//        userService.queryUserInfo();
+//        System.out.println("BeanName:" + userService.getName());
+//        System.out.println("BeanFactory:" + userService.getBeanFactory());
+//        System.out.println("ClassLoader:" + userService.getClassLoader());
+//        System.out.println("ApplicationContext:" + userService.getApplicationContext());
+    }
+
+    @Test
+    public void test_prototype() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
+        applicationContext.registerShutdownHook();
+
+        UserService userService1 = applicationContext.getBean("userService", UserService.class);
+        UserService userService2 = applicationContext.getBean("userService", UserService.class);
+
+        System.out.println(userService1);
+        System.out.println(userService2);
+
+        // 打印十六进制哈希值
+        System.out.println(userService1 + " 十六进制哈希：" + Integer.toHexString(userService1.hashCode()));
+        System.out.println(userService2 + " 十六进制哈希：" + Integer.toHexString(userService2.hashCode()));
+
+    }
+
+    @Test
+    public void test_factory_bean() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
+        applicationContext.registerShutdownHook();
+
+        UserService userService = applicationContext.getBean("userService", UserService.class);
+        System.out.println("测试结果：" + userService.queryUserInfo());
+    }
 }

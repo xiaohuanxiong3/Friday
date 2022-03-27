@@ -15,7 +15,7 @@
     <bytecodeTargetLevel>
       <module name="Friday" target="1.5" />
       <module name="Friday-beans" target="11" />
-      <module name="Friday-context" target="17" />
+      <module name="Friday-context" target="11" />
       <module name="Friday-core" target="11" />
       <module name="test" target="11" />
     </bytecodeTargetLevel>

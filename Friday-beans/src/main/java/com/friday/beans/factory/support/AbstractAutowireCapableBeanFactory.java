@@ -1,15 +1,18 @@
 package com.friday.beans.factory.support;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import com.friday.beans.BeansException;
 import com.friday.beans.PropertyValue;
 import com.friday.beans.PropertyValues;
+import com.friday.beans.factory.*;
 import com.friday.beans.factory.config.AutowireCapableBeanFactory;
 import com.friday.beans.factory.config.BeanDefinition;
 import com.friday.beans.factory.config.BeanPostProcessor;
 import com.friday.beans.factory.config.BeanReference;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
     private InstantiationStrategy instantiationStrategy = new SimpleInstantiationStrategy();
@@ -27,7 +30,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             throw new BeansException("Instantiation of bean failed",e);
         }
 
-        addSingleton(beanName,bean);
+        // 注册实现了 DisposableBean 接口的Bean对象
+        registerDisposableBeanIfNecessary(beanName,bean,beanDefinition);
+
+        if (beanDefinition.isSingleton()) {
+            addSingleton(beanName,bean);
+        }
+
         return bean;
     }
 
@@ -72,17 +81,49 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private Object initializeBean(String beanName,Object bean,BeanDefinition beanDefinition) {
+
+        // invokeAwareMethods
+        if (bean instanceof Aware) {
+            if (bean instanceof BeanFactoryAware) {
+                ((BeanFactoryAware) bean).setBeanFactory(this);
+            }
+            if (bean instanceof BeanClassLoaderAware) {
+                ((BeanClassLoaderAware) bean).setBeanClassLoader(getBeanClassLoader());
+            }
+            if (bean instanceof BeanNameAware) {
+                ((BeanNameAware) bean).setBeanName(beanName);
+            }
+        }
+
         // 1.执行 BeanPostProcessor 前置处理
         Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean,beanName);
-        // 待完成内容：invokeInitMethods(beanName,wrappedBean,beanDefinition)
-        invokeInitMethods(beanName,wrappedBean,beanDefinition);
+        // 执行 Bean 对象的初始化方法
+        try {
+            invokeInitMethods(beanName,wrappedBean,beanDefinition);
+        } catch (Exception e) {
+            throw new BeansException("Invocation of init method of bean[" + beanName + "] failed",e);
+        }
         // 2.执行 BeanPostProcessor 后置处理
         wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean,beanName);
         return wrappedBean;
     }
 
-    private void invokeInitMethods(String beanName,Object wrappedBean,BeanDefinition beanDefinition){
+    private void invokeInitMethods(String beanName,Object bean,BeanDefinition beanDefinition) throws Exception {
+        // 1.实现接口 InitializingBean
+        if (bean instanceof InitializingBean) {
+            ((InitializingBean) bean).afterPropertiesSet();
+        }
 
+        // 2.配置信息 init-method {判断是为了避免二次执行销毁}
+        String initMethodName = beanDefinition.getInitMethodName();
+        if (StrUtil.isNotEmpty(initMethodName) && !(bean instanceof InitializingBean)) {
+            Method method = beanDefinition.getBeanClass().getMethod(initMethodName);
+            if (null == method) {
+                throw new BeansException("Could not find an init method named '" + initMethodName + "' on " +
+                        "bean with name '"+ beanName + "'");
+            }
+            method.invoke(bean);
+        }
     }
 
     @Override
@@ -105,5 +146,15 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             result = current;
         }
         return result;
+    }
+
+    protected void registerDisposableBeanIfNecessary(String beanName,Object bean,BeanDefinition beanDefinition) {
+        // 非 Singleton 类型的 Bean 不执行销毁方法
+        if (!beanDefinition.isSingleton()) {
+            return;
+        }
+        if (bean instanceof DisposableBean || StrUtil.isNotEmpty(beanDefinition.getDestroyMethodName())) {
+            registerDisposableBean(beanName,new DisposableBeanAdapter(bean,beanName,beanDefinition));
+        }
     }
 }
