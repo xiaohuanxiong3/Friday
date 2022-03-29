@@ -66,9 +66,13 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         NodeList childNodes = root.getChildNodes();
         for (int i = 0;i < childNodes.getLength();i++) {
             // 判断元素
-            if (!(childNodes.item(i) instanceof Element)) continue;
+            if (!(childNodes.item(i) instanceof Element)) {
+                continue;
+            }
             // 判断对象
-            if (!"bean".equals(childNodes.item(i).getNodeName())) continue;
+            if (!"bean".equals(childNodes.item(i).getNodeName())) {
+                continue;
+            }
 
             // 解析标签
             Element bean = (Element) childNodes.item(i);
@@ -97,8 +101,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
             // 读取属性并填充
             for (int j = 0;j<bean.getChildNodes().getLength(); j++) {
-                if (!(bean.getChildNodes().item(j) instanceof Element)) continue;
-                if (!"property".equals(bean.getChildNodes().item(j).getNodeName())) continue;
+                if (!(bean.getChildNodes().item(j) instanceof Element)) {
+                    continue;
+                }
+                if (!"property".equals(bean.getChildNodes().item(j).getNodeName())) {
+                    continue;
+                }
 
                 // 解析标签：property
                 Element property = (Element) bean.getChildNodes().item(j);
