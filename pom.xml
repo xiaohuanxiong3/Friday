@@ -11,6 +11,11 @@
     <name>Fridy</name>
     <description>A simple java framework implemented with reference to Spring</description>
 
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
     <modules>
         <module>test</module>
         <module>Friday-framework</module>
