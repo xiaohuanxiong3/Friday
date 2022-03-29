@@ -1,10 +1,5 @@
 package com.friday.test.bean;
 
-import com.friday.beans.BeansException;
-import com.friday.beans.factory.*;
-import com.friday.context.ApplicationContext;
-import com.friday.context.ApplicationContextAware;
-
 public class UserService  {
 
     private String userId;

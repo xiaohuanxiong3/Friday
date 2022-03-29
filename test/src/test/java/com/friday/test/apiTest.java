@@ -1,9 +1,7 @@
 package com.friday.test;
 
-import com.friday.beans.factory.xml.XmlBeanDefinitionReader;
 import com.friday.context.support.ClassPathXmlApplicationContext;
 import com.friday.test.bean.UserService;
-import com.friday.beans.factory.support.DefaultListableBeanFactory;
 import org.junit.Test;
 
 public class apiTest {

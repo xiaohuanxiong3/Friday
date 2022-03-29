@@ -3,7 +3,6 @@ package com.friday.beans.factory.support;
 import com.friday.beans.BeansException;
 import com.friday.beans.factory.ConfigurableListableBeanFactory;
 import com.friday.beans.factory.config.BeanDefinition;
-import com.friday.beans.factory.config.BeanPostProcessor;
 
 import java.util.HashMap;
 import java.util.Map;
