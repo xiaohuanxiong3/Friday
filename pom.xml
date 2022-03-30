@@ -6,7 +6,7 @@
 
     <groupId>io.github.xiaohuanxiong3</groupId>
     <artifactId>Friday</artifactId>
-    <version>1.0.0</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Fridy</name>
     <description>A simple java framework implemented with reference to Spring</description>
